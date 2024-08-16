@@ -1,5 +1,6 @@
 package Game;
 
+import BFS.BFS;
 import DFS.DFS;
 import Node.Node;
 
@@ -18,11 +19,13 @@ public class GameStage extends JPanel {
     private Node goal;
 
     private final DFS dfs;
+    private final BFS bfs;
 
     GameStage(String gridSize, Point start, Point goal){
         this.setBackground(new Color(0x936639));
 
         this.dfs = new DFS();
+        this.bfs = new BFS();
 
         this.grid = generateGrid(gridSize, start, goal);
         this.cellSize = 400 / grid.length;
@@ -73,8 +76,16 @@ public class GameStage extends JPanel {
         return grid;
     }
 
-    public void findPath(){
-        dfs.start(grid, start, goal,this);
+    public void findPath(String algorithm){
+        switch (algorithm){
+            case "BFS" -> bfs.start(grid, start, goal,this);
+            case "STAR" -> {
+
+            }
+
+            default -> dfs.start(grid, start, goal,this);
+        }
+
     }
 
     @Override
@@ -103,7 +114,26 @@ public class GameStage extends JPanel {
                 g.setColor(WHITE);
                 g.drawRect(ci * cellSize, ri * cellSize, cellSize, cellSize);
             }
+
         }
+
+        paintPath(g);
+
+    }
+
+
+
+    private void paintPath(Graphics g){
+
+        Node currentNode = goal.parent();
+        g.setColor(WHITE);
+
+        while (currentNode != null && currentNode != start){
+
+            g.fillRect(currentNode.y() * cellSize, currentNode.x() * cellSize, cellSize, cellSize);
+            currentNode = currentNode.parent();
+        }
+
 
     }
 }

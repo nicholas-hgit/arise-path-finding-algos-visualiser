@@ -66,7 +66,7 @@ public class GamePanel extends JPanel{
         findPath.addActionListener((_) -> {
             Component component = this.getComponent(11);
             if(component instanceof GameStage g){
-                g.findPath();
+                g.findPath(algorithmSelector.getSelected());
             }
         });
 

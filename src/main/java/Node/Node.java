@@ -8,28 +8,11 @@ public class Node {
     private final int y;
     private boolean isObstacle;
     private boolean isVisited;
-    private boolean isStart;
-    private boolean isGoal;
+    private final boolean isStart;
+    private final boolean isGoal;
 
     private Node parent;
 
-
-    public Node(int x, int y, boolean isObstacle){
-        this.x = x;
-        this.y = y;
-        this.isObstacle = isObstacle;
-        this.isVisited = false;
-        this.isStart = false;
-        this.isGoal = false;
-    }
-
-    public Node(int x, int y, boolean isObstacle,  Node parent){
-        this.x = x;
-        this.y = y;
-        this.isObstacle = isObstacle;
-        this.isVisited = false;
-        this.parent = parent;
-    }
 
     public Node(int x,int y, boolean isStart, boolean isGoal){
         this.x = x;
