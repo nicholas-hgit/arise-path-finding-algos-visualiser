@@ -13,6 +13,10 @@ public class Node {
 
     private Node parent;
 
+    //A* variables
+    private int g;
+    private int h;
+
 
     public Node(int x,int y, boolean isStart, boolean isGoal){
         this.x = x;
@@ -61,6 +65,26 @@ public class Node {
 
     public Node parent(){
         return this.parent;
+    }
+
+    public void setG(int g){
+        this.g = g;
+    }
+
+    public int g(){
+        return this.g;
+    }
+
+    public void setH(int h){
+        this.h = h;
+    }
+
+    public int h(){
+        return this.h;
+    }
+
+    public int f(){
+        return this.h + this.g;
     }
 
     @Override

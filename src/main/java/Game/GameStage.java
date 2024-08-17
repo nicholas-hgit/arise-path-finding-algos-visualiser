@@ -3,6 +3,7 @@ package Game;
 import BFS.BFS;
 import DFS.DFS;
 import Node.Node;
+import STAR.STAR;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,12 +21,14 @@ public class GameStage extends JPanel {
 
     private final DFS dfs;
     private final BFS bfs;
+    private final STAR star;
 
     GameStage(String gridSize, Point start, Point goal){
         this.setBackground(new Color(0x936639));
 
         this.dfs = new DFS();
         this.bfs = new BFS();
+        this.star = new STAR();
 
         this.grid = generateGrid(gridSize, start, goal);
         this.cellSize = 400 / grid.length;
@@ -79,13 +82,9 @@ public class GameStage extends JPanel {
     public void findPath(String algorithm){
         switch (algorithm){
             case "BFS" -> bfs.start(grid, start, goal,this);
-            case "STAR" -> {
-
-            }
-
+            case "STAR" -> star.start(grid, start, goal, this);
             default -> dfs.start(grid, start, goal,this);
         }
-
     }
 
     @Override
