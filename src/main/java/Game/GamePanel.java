@@ -47,20 +47,7 @@ public class GamePanel extends JPanel{
         quit.setBounds(320,500,150,40);
         quit.setFocusPainted(false);
 
-        generateGrid.addActionListener((_) -> {
-
-            if(this.getComponentCount() > 11){
-                this.remove(11);
-            }
-
-            Point start = new Point(Integer.parseInt(startX.getText()), Integer.parseInt(startY.getText()));
-            Point goal = new Point(Integer.parseInt(goalX.getText()), Integer.parseInt(goalY.getText()));
-
-            GameStage gameStage = generateGrid(gridSelector.getSelected(), start, goal);
-            this.add(gameStage);
-            this.validate();
-            gameStage.repaint();
-        });
+        generateGrid.addActionListener((_) -> onGenerateGrid(gridSelector,startX,startY,goalX,goalY));
 
         quit.addActionListener((_) -> SwingUtilities.getWindowAncestor(this).dispose());
         findPath.addActionListener((_) -> {
@@ -91,5 +78,45 @@ public class GamePanel extends JPanel{
         gameStage.setBounds(40, 90, 400, 400);
 
         return  gameStage;
+    }
+
+    private void onGenerateGrid(GridSelector selector, JTextField sX, JTextField sY, JTextField gX, JTextField gY){
+
+        if(this.getComponentCount() > 11){
+            this.remove(11);
+        }
+
+        Point start;
+        Point goal;
+
+        try{
+            start = new Point(Integer.parseInt(sX.getText()), Integer.parseInt(sY.getText()));
+            goal = new Point(Integer.parseInt(gX.getText()), Integer.parseInt(gY.getText()));
+        }catch (NumberFormatException _){
+            return;
+        }
+
+        String gridSize = selector.getSelected();
+
+        if(gridSize.isEmpty() || start.equals(goal)){
+            return;
+        }
+
+        if("small".equals(gridSize) && (start.x + start.y >= 16 || goal.x + goal.y >= 16)){
+            return;
+        }
+
+        if("medium".equals(gridSize) && (start.x + start.y >= 32 || goal.x + goal.y >= 32)){
+            return;
+        }
+
+        if("large".equals(gridSize) && (start.x + start.y >= 64 || goal.x + goal.y >= 64)){
+            return;
+        }
+
+        GameStage gameStage = generateGrid(gridSize, start, goal);
+        this.add(gameStage);
+        this.validate();
+        gameStage.repaint();
     }
 }
