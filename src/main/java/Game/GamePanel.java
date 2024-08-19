@@ -48,8 +48,8 @@ public class GamePanel extends JPanel{
         quit.setFocusPainted(false);
 
         generateGrid.addActionListener((_) -> onGenerateGrid(gridSelector,startX,startY,goalX,goalY));
-
         quit.addActionListener((_) -> SwingUtilities.getWindowAncestor(this).dispose());
+
         findPath.addActionListener((_) -> {
             Component component = this.getComponent(11);
             if(component instanceof GameStage g){
@@ -102,15 +102,15 @@ public class GamePanel extends JPanel{
             return;
         }
 
-        if("small".equals(gridSize) && (start.x + start.y >= 16 || goal.x + goal.y >= 16)){
+        if("small".equals(gridSize) && (start.x + start.y >= 15 || goal.x + goal.y >= 15)){
             return;
         }
 
-        if("medium".equals(gridSize) && (start.x + start.y >= 32 || goal.x + goal.y >= 32)){
+        if("medium".equals(gridSize) && (start.x + start.y >= 31 || goal.x + goal.y >= 31)){
             return;
         }
 
-        if("large".equals(gridSize) && (start.x + start.y >= 64 || goal.x + goal.y >= 64)){
+        if("large".equals(gridSize) && (start.x + start.y >= 63 || goal.x + goal.y >= 63)){
             return;
         }
 

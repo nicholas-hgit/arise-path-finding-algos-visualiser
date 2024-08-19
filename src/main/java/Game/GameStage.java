@@ -69,7 +69,6 @@ public class GameStage extends JPanel {
                     this.start = node;
                 } else if (isGoal) {
                     this.goal = node;
-
                 }
 
                 grid[ri][ci] = node;
@@ -97,18 +96,17 @@ public class GameStage extends JPanel {
 
                 Node node = grid[ri][ci];
 
-                Color color = node.isNotObstacle() ? GREEN : GRAY;
+                Color color = switch(node){
+
+                    case Node n when n.isStart() -> RED;
+                    case Node n when n.isGoal() -> BLUE;
+                    case Node n when !n.isNotVisited() -> YELLOW;
+                    case Node n when !n.isNotObstacle() -> GRAY;
+                    default -> GREEN;
+
+                };
+
                 g.setColor(color);
-
-                if(node.isStart()){
-                    g.setColor(RED);
-                } else if (node.isGoal()) {
-                    g.setColor(BLUE);
-                } else if (!node.isNotVisited()) {
-                    g.setColor(YELLOW);
-                }
-
-
                 g.fillRect(ci * cellSize, ri * cellSize, cellSize, cellSize);
                 g.setColor(WHITE);
                 g.drawRect(ci * cellSize, ri * cellSize, cellSize, cellSize);
@@ -119,9 +117,7 @@ public class GameStage extends JPanel {
         paintPath(g);
 
     }
-
-
-
+    
     private void paintPath(Graphics g){
 
         Node currentNode = goal.parent();
