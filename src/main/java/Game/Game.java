@@ -10,6 +10,7 @@ public class Game extends JFrame {
         this.setSize(new Dimension(485,600));
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setLocationRelativeTo(null);
+        this.setResizable(false);
 
         this.add(new GamePanel());
         this.setVisible(true);

@@ -21,10 +21,10 @@
 <p>Grid size selection</p>
 
 ### BFS(example)
-<img src="/src/main/resources/images/BFS.png">
+<img src="/src/main/resources/images/BFS.png" alt="">
 
 ### A*(example)
-<img src="/src/main/resources/images/A-star.png"> 
+<img src="/src/main/resources/images/A-star.png" alt=""> 
 
 <ul>
     <li>Obstacles(gray)</li>

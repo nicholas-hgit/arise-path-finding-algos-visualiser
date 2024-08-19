@@ -44,20 +44,16 @@ public class STAR {
             int f = g + h;
 
             boolean isNeighbourInNodes = nodes.contains(neighbour);
+            boolean requiresUpdate = false;
 
             if(isNeighbourInNodes && neighbour.f() > f){
                 nodes.remove(neighbour);
-
-                neighbour.setG(g);
-                neighbour.setH(h);
-                neighbour.setParent(current);
-                nodes.offer(neighbour);
-                return;
+                requiresUpdate = true;
             }
 
-            if(!isNeighbourInNodes){
+            if(!isNeighbourInNodes || requiresUpdate){
 
-                neighbour.setG(current.g() + 1);
+                neighbour.setG(g);
                 neighbour.setH(h);
                 neighbour.setParent(current);
                 nodes.offer(neighbour);
