@@ -1,18 +1,21 @@
 package DFS;
 
 import java.util.Stack;
-
-import static Direction.Direction.*;
 import Node.Node;
-
 import javax.swing.*;
 
 public class DFS {
 
     private final Stack<Node> nodes;
+    private final int[] moves = {-1,0,0,1,1,0,0,-1};
 
     public DFS(){
         nodes = new Stack<>();
+    }
+
+    private boolean isValidCoordinates(int x, int y, int gridSize){
+        return (x >= 0 && x <= gridSize - 1) && (y >= 0 && y <= gridSize - 1);
+
     }
 
     public void start(Node[][] maze, Node start, Node goal, JPanel canvas){
@@ -22,65 +25,34 @@ public class DFS {
 
         while (!nodes.isEmpty() && goal.isNotVisited()){
 
-            Node currentNode = nodes.peek();
+            Node current = nodes.peek();
+            boolean updatedNodes = false;
 
-            if(currentNode.y() != 0){
+            for(int index = 0; index < 7; index += 2){
 
-                Node leftNode = maze[currentNode.x()][currentNode.y() + LEFT.move()];
+                int neighbourX = current.x() + moves[index + 1];
+                int neighbourY = current.y() + moves[index];
 
-                if(leftNode.isNotVisited() && leftNode.isNotObstacle()){
+                if(isValidCoordinates(neighbourX,neighbourY,maze.length)){
 
-                    leftNode.setVisited(true);
-                    leftNode.setParent(currentNode);
-                    nodes.push(leftNode);
-                    canvas.repaint();
-                    continue;
+                    Node neighbour = maze[neighbourX][neighbourY];
+                    if(neighbour.isNotVisited() && neighbour.isNotObstacle()){
+
+                        neighbour.setVisited(true);
+                        neighbour.setParent(current);
+                        nodes.push(neighbour);
+                        updatedNodes = true;
+                        canvas.repaint();
+                        break;
+                    }
+
                 }
             }
 
-            if(currentNode.x() != maze.length - 1){
-
-                Node bottomNode = maze[currentNode.x() + DOWN.move()][currentNode.y()];
-
-                if(bottomNode.isNotVisited() && bottomNode.isNotObstacle()){
-
-                    bottomNode.setVisited(true);
-                    bottomNode.setParent(currentNode);
-                    nodes.push(bottomNode);
-                    canvas.repaint();
-                    continue;
-                }
+            if(!updatedNodes){
+                nodes.pop();
             }
 
-            if(currentNode.y() != maze.length - 1){
-
-                Node rightNode = maze[currentNode.x()][currentNode.y() + RIGHT.move()];
-
-                if(rightNode.isNotVisited() && rightNode.isNotObstacle()){
-
-                    rightNode.setVisited(true);
-                    rightNode.setParent(currentNode);
-                    nodes.push(rightNode);
-                    canvas.repaint();
-                    continue;
-                }
-            }
-
-            if(currentNode.x() != 0){
-
-                Node topNode = maze[currentNode.x() + UP.move()][currentNode.y()];
-
-                if(topNode.isNotVisited() && topNode.isNotObstacle()){
-
-                    topNode.setVisited(true);
-                    topNode.setParent(currentNode);
-                    nodes.push(topNode);
-                    canvas.repaint();
-                    continue;
-                }
-            }
-
-            nodes.pop();
         }
 
     }
