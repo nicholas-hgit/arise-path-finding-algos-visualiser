@@ -40,11 +40,7 @@ public class BFS {
         while (!nodes.isEmpty() && goal.isNotVisited()){
 
             Node current = nodes.poll();
-
             assert current != null;
-            if(current.isGoal()){
-                break;
-            }
 
             for(int index = 0; index < 7; index += 2){
 

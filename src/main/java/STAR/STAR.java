@@ -69,11 +69,11 @@ public class STAR {
 
         nodes.offer(start);
 
-        while (!nodes.isEmpty() && goal.isNotVisited()){
+        while (!nodes.isEmpty()){
 
             Node current = nodes.poll();
-
             assert current != null;
+
             current.setVisited(true);
             canvas.repaint();
 
